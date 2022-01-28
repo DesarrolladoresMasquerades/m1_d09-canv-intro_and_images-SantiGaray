@@ -2,8 +2,8 @@ console.log("fireball loaded");
 
 const canvas = document.getElementById("canvas");
 
-canvas.width = window.innerWidth * 0.6;
-canvas.height = window.innerHeight* 0.6;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
 const ctx = canvas.getContext("2d");
 
@@ -26,19 +26,20 @@ fireball.addEventListener(
 let frameNumber;
 
 const ondaEnergetica = {
-  animating: true,
+  animating: false,
   img: fireball,
   x: 0,
   y: 0,
   draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    //this.x += canvas.width / 600, this.y += canvas.height / 600;
+    this.x += canvas.width / 900;
+    this.y += canvas.height / 1200;
 
-    
+    if(this.x > canvas.width || this.y > canvas.height) this.x = this.y = 0;
     ctx.drawImage(this.img, 250, 0, 100, 100, this.x, this.y, 100, 100);
-    
- frameNumber = requestAnimationFrame(this.draw.bind(this));
-    
+    if (this.animating) {
+      frameNumber = requestAnimationFrame(this.draw.bind(this));
+    }
   },
 };
 
